@@ -1,9 +1,8 @@
 import React from 'react';
-import './MyNavbar.scss';
-import Home;
-import New;
-import My Stuff;
 import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import './MyNavbar.scss';
 
 class MyNavbar extends React.Component {
   logMeOut = (e) => {
@@ -14,10 +13,9 @@ class MyNavbar extends React.Component {
   render() {
     return (
       <div className="MyNavbar">
-      <h1>My Navbar</h1>
-      <button className="btn btn-danger" onClick={this.logMeOut}>Logout</button>
+        <h1>My Navbar</h1>
+        <button className="btn btn-danger" onClick={this.logMeOut}>Logout</button>
       </div>
-
     );
   }
 }
