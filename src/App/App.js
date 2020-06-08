@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.scss';
 import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import {
   BrowserRouter,
@@ -9,15 +9,17 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Auth from '../components/pages/Auth/Auth';
+import './App.scss';
+
 import MyNavbar from '../components/shared/MyNavbar/MyNavbar';
+
+import Auth from '../components/pages/Auth/Auth';
+import EditStuff from '../components/pages/EditStuff/EditStuff';
 import Home from '../components/pages/Home/Home';
 import NewStuff from '../components/pages/NewStuff/NewStuff';
 import MyStuff from '../components/pages/MyStuff/MyStuff';
 
-
 import fbConnection from '../helpers/data/connection';
-
 
 fbConnection();
 
@@ -59,15 +61,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <BrowserRouter>
-        <Auth />
-        <React.Fragment>
-          <MyNavbar />
+         <React.Fragment>
+          <MyNavbar authed={ authed } />
           <div className="container">
-          <button className="btn btn-info">React Hoarder</button>
             <div className="row">
-          <Switch>
+                <Switch>
                   <PrivateRoute path='/home' component={Home} authed={authed} />
                   <PrivateRoute path='/new' component={NewStuff} authed={authed} />
+                  <PrivateRoute path='/edit/:stuffId' component={EditStuff} authed={authed} />
                   <PrivateRoute path='/mystuff/:stuffId' component={MyStuff} authed={authed} />
                   <PublicRoute path='/auth' component={Auth} authed={authed} />
                   <Redirect from="*" to="/home"/>
