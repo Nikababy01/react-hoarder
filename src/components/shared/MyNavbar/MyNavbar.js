@@ -1,4 +1,14 @@
 import React from 'react';
+import { NavLink as RRNavLink } from 'react-router-dom';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -10,30 +20,51 @@ class MyNavbar extends React.Component {
     authed: PropTypes.bool.isRequired,
   }
 
+  state = {
+    isOpen: false,
+  }
+
   logMeOut = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
   }
 
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
   render() {
-    const { authed } = this.props;
+    const { isOpen } = this.state;
+
+    const buildNavbar = () => {
+      const { authed } = this.props;
+      if (authed) {
+        return (
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink tag={RRNavLink} to='/home'>Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RRNavLink} to='/new'>New Stuff</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={this.logMeOut}>Logout</NavLink>
+            </NavItem>
+          </Nav>
+        );
+      }
+      return <Nav className="ml-auto" navbar></Nav>;
+    };
 
     return (
       <div className="MyNavbar">
-        <nav className="navbar navbar-expand-lg  bg-dark">
-          <a className="navbar-brand" href="#n">React Hoarder</a>
-          <div className="collapse navbar-collapse" id="n">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              {
-                authed
-                  ? <button className="btn btn-danger nav-link" onClick={this.logMeOut}>Log Out</button>
-                  : ''
-              }
-            </li>
-         </ul>
-        </div>
-      </nav>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/">React Hoarder</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            {buildNavbar()}
+          </Collapse>
+        </Navbar>
       </div>
     );
   }
