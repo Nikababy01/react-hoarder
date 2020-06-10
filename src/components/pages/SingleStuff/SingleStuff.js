@@ -15,11 +15,19 @@ class SingleStuff extends React.Component {
       .catch((err) => console.error('unable to get single item: ', err));
   }
 
+  removeItem = () => {
+    const { itemId } = this.props.match.params;
+    itemsData.deleteItem(itemId)
+      .then(() => this.props.history.push('/home'))
+      .catch((err) => console.error('unable to delete item', err));
+  }
+
   render() {
     const { item } = this.state;
     return (
       <div className="SingleStuff">
         <h1>{item.itemName}</h1>
+        <button className="btn btn-danger" onClick={this.removeItem}><i className="fas fa-trash-alt"></i></button>
     <p>Details:{item.itemDescription}</p>
           </div>
     );
