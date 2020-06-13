@@ -33,7 +33,7 @@ class Home extends React.Component {
     ));
     return (
       <div className="Home">
-        <h1>Home</h1>
+        <h1>MyStuff</h1>
         <div className="d-flex flex-wrap">
           {buildItemCards}
        </div>
