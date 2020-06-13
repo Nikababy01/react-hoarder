@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './SingleStuff.scss';
 import itemsData from '../../../helpers/data/itemsData';
 
@@ -24,9 +24,12 @@ class SingleStuff extends React.Component {
 
   render() {
     const { item } = this.state;
+    const { itemId } = this.props.match.params;
+    const editLink = `/edit/${itemId}`;
     return (
       <div className="SingleStuff">
         <h1>{item.itemName}</h1>
+        <Link className="btn btn-warning" to={editLink}><i className="fas fa-pencil-alt"></i></Link>
         <button className="btn btn-danger" onClick={this.removeItem}><i className="fas fa-trash-alt"></i></button>
     <p>Details:{item.itemDescription}</p>
           </div>
