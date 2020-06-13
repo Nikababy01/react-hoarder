@@ -42,7 +42,7 @@ class MyNavbar extends React.Component {
         return (
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={RRNavLink} to='/home'>Home</NavLink>
+              <NavLink tag={RRNavLink} to='/home'>MyStuff</NavLink>
             </NavItem>
             <NavItem>
               <NavLink tag={RRNavLink} to='/new'>New Stuff</NavLink>
